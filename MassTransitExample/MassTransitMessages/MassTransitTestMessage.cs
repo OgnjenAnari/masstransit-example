@@ -4,9 +4,9 @@
     {
         public string Text { get; }
 
-        public MassTransitTestMessage(string mesage)
+        public MassTransitTestMessage(string text)
         {
-            Text = mesage;
+            Text = text;
         }
     }
 }

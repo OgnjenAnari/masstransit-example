@@ -12,9 +12,11 @@ namespace MassTransitConsumer
 
         public async Task Consume(ConsumeContext<MassTransitTestMessage> context)
         {
+            Console.WriteLine($"[{DateTime.Now} - THREAD {Thread.CurrentThread.ManagedThreadId}] Got a message with body: {context.Message.Text}");
+
             await Task.Delay(5000);
 
-            Console.WriteLine($"[{DateTime.Now} - THREAD {Thread.CurrentThread.ManagedThreadId}] Got a message with body: {context.Message.Text}");
+            Console.WriteLine($"[{DateTime.Now} - THREAD {Thread.CurrentThread.ManagedThreadId}] Done processing message with body: {context.Message.Text}");
         }
     }
 }
