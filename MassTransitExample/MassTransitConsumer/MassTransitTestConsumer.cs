@@ -14,7 +14,7 @@ namespace MassTransitConsumer
         {
             Console.WriteLine($"[{DateTime.Now} - THREAD {Thread.CurrentThread.ManagedThreadId}] Got a message with body: {context.Message.Text}");
 
-            await Task.Delay(5000);
+            await Task.Delay(10000);
 
             Console.WriteLine($"[{DateTime.Now} - THREAD {Thread.CurrentThread.ManagedThreadId}] Done processing message with body: {context.Message.Text}");
         }

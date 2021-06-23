@@ -7,13 +7,15 @@ namespace MassTransitProducer
 {
     class Producer
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             var busControl = Bus.Factory.CreateUsingAmazonSqs(cfg =>
             {
                 cfg.Host("eu-central-1", h => { });
                 cfg.Message<MassTransitTestMessage>(m => m.SetEntityName("masstransit-test-topic"));
             });
+
+            await busControl.StartAsync();
 
             List<Task> tasks = new List<Task>();
 
@@ -23,6 +25,8 @@ namespace MassTransitProducer
             }
 
             Task.WaitAll(tasks.ToArray());
+
+            await busControl.StopAsync();
         }
     }
 }

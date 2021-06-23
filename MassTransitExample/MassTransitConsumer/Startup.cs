@@ -35,13 +35,14 @@ namespace MassTransitConsumer
                     .Endpoint(e =>
                     {
                         e.Name = "masstransit-test-queue";
-                        e.ConcurrentMessageLimit = 20;
                         e.PrefetchCount = 20;
                     });
 
                 x.UsingAmazonSqs((context, configurator) =>
                 {
                     configurator.Host("eu-central-1", h => { });
+                    configurator.PrefetchCount = 20;
+                    configurator.WaitTimeSeconds = 10;
                     configurator.Message<MassTransitTestMessage>(m => m.SetEntityName("masstransit-test-topic"));
 
                     configurator.ConfigureEndpoints(context);
