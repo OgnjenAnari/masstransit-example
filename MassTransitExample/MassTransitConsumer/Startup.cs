@@ -34,20 +34,22 @@ namespace MassTransitConsumer
                 x.AddConsumer<MassTransitTestConsumer>()
                     .Endpoint(e =>
                     {
-                        e.ConcurrentMessageLimit = 5;
-                        e.PrefetchCount = 5;
+                        e.ConcurrentMessageLimit = 20;
+                        e.PrefetchCount = 20;
                     });
 
                 x.AddBus(serviceProvider =>
                     Bus.Factory.CreateUsingAmazonSqs(cfg =>
                     {
                         cfg.Host("eu-central-1", h => { });
+                        cfg.ConcurrentMessageLimit = 20;
+                        cfg.PrefetchCount = 20;
                         cfg.Message<MassTransitTestMessage>(m => m.SetEntityName("masstransit-test-topic"));
 
                         cfg.ReceiveEndpoint("masstransit-test-queue", e =>
                         {
-                            e.ConcurrentMessageLimit = 5;
-                            e.PrefetchCount = 5;
+                            e.ConcurrentMessageLimit = 20;
+                            e.PrefetchCount = 20;
                             e.Consumer<MassTransitTestConsumer>(serviceProvider);
                         });
                     }));

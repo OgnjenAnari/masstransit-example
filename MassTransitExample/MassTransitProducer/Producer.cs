@@ -17,7 +17,7 @@ namespace MassTransitProducer
 
             List<Task> tasks = new List<Task>();
 
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 20; i++)
             {
                 tasks.Add(busControl.Publish(new MassTransitTestMessage($"Message number: {i + 1}")));
             }
